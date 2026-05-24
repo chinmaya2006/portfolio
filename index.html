@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinmaya | Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. CORE STYLES & VARIABLE THEMES (Dark Mode First Setup)
+           ========================================================================== */
+        :root {
+            --bg-base: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #2dd4bf;
+            --accent-blue: #3b82f6;
+            --accent-purple: #9333ea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Animated Abstract Background Gradients */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 15% 20%, rgba(45, 212, 191, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 70%, rgba(147, 51, 234, 0.08) 0%, transparent 45%);
+        }
+
+        /* Reusable Glassmorphism Utility Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+        }
+
+        /* Typography Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -0.025em;
+        }
+
+        /* ==========================================================================
+           2. NAVIGATION BAR
+           ========================================================================== */
+        .navbar-wrapper {
+            position: fixed;
+            top: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            z-index: 100;
+            padding: 0.75rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 1.5rem 4rem 1.5rem;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            color: var(--accent-cyan);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 40rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.25rem;
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-blue));
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 9999px;
+            box-shadow: 0 10px 25px -5px rgba(45, 212, 191, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -5px rgba(45, 212, 191, 0.5);
+        }
+
+        /* ==========================================================================
+           4. SKILLS SECTION (Grid layout)
+           ========================================================================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(45, 212, 191, 0.4);
+            box-shadow: 0 10px 25px -10px rgba(45, 212, 191, 0.2);
+        }
+
+        .skill-card i {
+            font-size: 2.5rem;
+        }
+
+        .skill-card span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Custom colors matching standard brand designs */
+        .icon-cpp { color: #00599C; }
+        .icon-python { color: #3776AB; }
+        .icon-java { color: #007396; }
+        .icon-git { color: #F05032; }
+        .icon-web { color: #2dd4bf; }
+        .icon-dsa { color: #a855f7; }
+
+        /* ==========================================================================
+           5. PROJECTS SECTION
+           ========================================================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.2);
+        }
+
+        .project-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        .project-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .project-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* ==========================================================================
+           6. FOOTER
+           ========================================================================== */
+        footer {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-radius: 2rem 2rem 0 0;
+            border-bottom: none;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-socials a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent-cyan);
+            transform: scale(1.15);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           7. MOBILE RESPONSIVENESS
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Kept simple for minimalist portfolio structure */
+            .navbar-wrapper { padding: 0.75rem 1.25rem; }
+            section { padding: 3.5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="animated-bg"></div>
+
+    <div class="navbar-wrapper glass-card">
+        <nav>
+            <a href="#" class="logo text-gradient">CHINMAYA.</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active">Home</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <section class="hero-section glass-card" data-aos="fade-up">
+            <div class="hero-badge">AIML Student</div>
+            <h1 class="hero-title">Hi, I am <span class="text-gradient">Chinmaya</span></h1>
+            <p class="hero-tagline">
+                An AI/ML student and software enthusiast. I love building smart apps, high-performance websites, and engineering intuitive digital tools.
+            </p>
+            <a href="#projects" class="cta-btn">
+                View My Work <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </section>
+
+        <section id="skills" data-aos="fade-up">
+            <h2 class="section-title">My Tech Stack</h2>
+            <div class="skills-grid">
+                <div class="glass-card skill-card">
+                    <i class="fa-solid fa-code icon-cpp"></i>
+                    <span>C / C++</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-python icon-python"></i>
+                    <span>Python</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-java icon-java"></i>
+                    <span>Java</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-github icon-git"></i>
+                    <span>GitHub</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-solid fa-layer-group icon-web"></i>
+                    <span>Fullstack</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-solid fa-diagram-project icon-dsa"></i>
+                    <span>DSA</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" data-aos="fade-up">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                
+                <div class="glass-card project-card">
+                    <div class="project-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <h3>Personal Portfolio Hub</h3>
+                    <p>
+                        A responsive, high-performance single-page developer portfolio using advanced Glassmorphic custom properties and optimized graphics layer workflows.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source</a>
+                        <a href="#" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Hub</a>
+                    </div>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>AIML Predictive Engine</h3>
+                    <p>
+                        An intelligent predictive architecture utilizing dataset analysis models to map, process, and output automation arrays.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source</a>
+                    </div>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <h3>Fullstack Application Matrix</h3>
+                    <p>
+                        A structural dynamic application module integrated seamlessly with scalable backend configurations and API hooks.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="glass-card">
+        <div class="footer-socials">
+            <a href="#" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:your.email@example.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <p>&copy; <span id="year"></span> Chinmaya. Built with passion and code.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Dynamic Year Update Footer hook
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
