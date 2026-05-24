@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinmaya | Portfolio</title>
+    <title>Chinmaya | Portfolio Space</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
 
     <style>
         /* ==========================================================================
-           1. CORE STYLES & VARIABLE THEMES (Dark Mode First Setup)
+           1. CORE SYSTEM DESIGN & THEME PROPERTIES
            ========================================================================== */
         :root {
             --bg-base: #0f172a;
@@ -31,16 +31,18 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-base);
             color: var(--text-main);
-            overflow-x: hidden;
+            overflow: hidden; 
+            height: 100vh;
+            width: 100vw;
         }
 
-        /* Animated Abstract Background Gradients */
+        /* Ambient Micro-Glow Layer */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -52,7 +54,6 @@
                         radial-gradient(circle at 85% 70%, rgba(147, 51, 234, 0.08) 0%, transparent 45%);
         }
 
-        /* Reusable Glassmorphism Utility Card */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -61,7 +62,6 @@
             border-radius: 1.5rem;
         }
 
-        /* Typography Gradients */
         .text-gradient {
             background: linear-gradient(to right, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
             -webkit-background-clip: text;
@@ -73,22 +73,15 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem;
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.75rem);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 3rem;
-            letter-spacing: -0.025em;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         /* ==========================================================================
-           2. NAVIGATION BAR
+           2. APP NAVIGATION SPECIFICATIONS
            ========================================================================== */
         .navbar-wrapper {
             position: fixed;
@@ -99,6 +92,7 @@
             max-width: 1100px;
             z-index: 100;
             padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
         }
 
         nav {
@@ -113,39 +107,104 @@
             text-decoration: none;
             color: var(--text-main);
             letter-spacing: -0.05em;
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
         }
 
-        .nav-link {
-            text-decoration: none;
+        .nav-btn {
+            background: none;
+            border: none;
             color: var(--text-muted);
             font-weight: 600;
-            transition: color 0.3s ease;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-btn:hover, .nav-btn.active {
             color: var(--accent-cyan);
+            background: rgba(45, 212, 191, 0.08);
         }
 
         /* ==========================================================================
-           3. HERO SECTION
+           3. ROUTING & SECTION DISPLAY CONTROLS
+           ========================================================================== */
+        .app-section {
+            position: absolute;
+            width: 100%;
+            max-height: 75vh;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            scrollbar-width: none; 
+        }
+
+        .app-section::-webkit-scrollbar {
+            display: none; 
+        }
+
+        .app-section.active-view {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            z-index: 10;
+        }
+
+        /* BACK BUTTON SYSTEM FOR ALL SUB PANELS */
+        .back-hub-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-hub-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-3px);
+        }
+
+        /* ==========================================================================
+           4. HOME HERO PRESENTATION LAYER & HUB TRANSITION
            ========================================================================== */
         .hero-section {
-            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 8rem 1.5rem 4rem 1.5rem;
-            margin-top: 2rem;
-            position: relative;
-            overflow: hidden;
+            padding: 3.5rem 2rem;
+        }
+
+        /* Logic toggles to handle card menu switch vs full greeting visibility */
+        .hero-section .hide-on-hub { display: flex; flex-direction: column; align-items: center; }
+        .hero-section .show-only-on-hub { display: none; }
+
+        .hero-section.show-hub-options .hide-on-hub {
+            display: none !important;
+        }
+        .hero-section.show-hub-options .show-only-on-hub {
+            display: inline-flex;
         }
 
         .hero-badge {
@@ -154,7 +213,7 @@
             color: var(--accent-cyan);
             padding: 0.5rem 1.25rem;
             border-radius: 9999px;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
@@ -162,17 +221,17 @@
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
             font-weight: 800;
-            line-height: 1.1;
+            line-height: 1.15;
             letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .hero-tagline {
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-size: clamp(1rem, 2.2vw, 1.35rem);
             color: var(--text-muted);
-            max-width: 40rem;
+            max-width: 44rem;
             margin-bottom: 2.5rem;
             line-height: 1.6;
         }
@@ -187,6 +246,8 @@
             font-weight: 700;
             text-decoration: none;
             border-radius: 9999px;
+            border: none;
+            cursor: pointer;
             box-shadow: 0 10px 25px -5px rgba(45, 212, 191, 0.3);
             transition: all 0.3s ease;
         }
@@ -196,110 +257,196 @@
             box-shadow: 0 15px 30px -5px rgba(45, 212, 191, 0.5);
         }
 
-        /* ==========================================================================
-           4. SKILLS SECTION (Grid layout)
-           ========================================================================== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        /* Revealed Workspace Hub Layout Grid */
+        .hub-menu-container {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
+            margin-top: 1rem;
+            animation: fadeInHub 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .skill-card {
-            padding: 2rem 1rem;
-            text-align: center;
-            transition: all 0.4s ease;
+        .hero-section.show-hub-options .hub-menu-container {
+            display: grid;
+        }
+
+        .hub-card {
+            padding: 2.25rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 1rem;
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .hub-card i {
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hub-card span {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .hub-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hub-card.hub-skills:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 25px -10px rgba(45, 212, 191, 0.3);
+            transform: translateY(-5px);
+        }
+        .hub-card.hub-skills i { color: var(--accent-cyan); }
+
+        .hub-card.hub-projects:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 25px -10px rgba(59, 130, 246, 0.3);
+            transform: translateY(-5px);
+        }
+        .hub-card.hub-projects i { color: var(--accent-blue); }
+
+        .hub-card.hub-contact:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 25px -10px rgba(147, 51, 234, 0.3);
+            transform: translateY(-5px);
+        }
+        .hub-card.hub-contact i { color: var(--accent-purple); }
+
+        .hub-card:hover i { transform: scale(1.1); }
+
+        @keyframes fadeInHub {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           5. SKILLS DESIGN GRID (16 Items)
+           ========================================================================== */
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.25rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .skill-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: rgba(45, 212, 191, 0.4);
-            box-shadow: 0 10px 25px -10px rgba(45, 212, 191, 0.2);
+            box-shadow: 0 12px 20px -10px rgba(45, 212, 191, 0.25);
         }
 
-        .skill-card i {
-            font-size: 2.5rem;
-        }
+        .skill-card i { font-size: 2.25rem; }
+        .skill-card span { font-weight: 600; font-size: 0.95rem; }
 
-        .skill-card span {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        /* Custom colors matching standard brand designs */
+        /* Icon Colors */
+        .icon-html { color: #E34F26; }
+        .icon-css { color: #1572B6; }
+        .icon-js { color: #F7DF1E; }
         .icon-cpp { color: #00599C; }
         .icon-python { color: #3776AB; }
         .icon-java { color: #007396; }
+        .icon-react { color: #61DAFB; }
+        .icon-node { color: #339933; }
+        .icon-express { color: #ffffff; }
+        .icon-mongodb { color: #47A248; }
+        .icon-mysql { color: #4479A1; }
+        .icon-php { color: #777BB4; }
         .icon-git { color: #F05032; }
-        .icon-web { color: #2dd4bf; }
-        .icon-dsa { color: #a855f7; }
+        .icon-docker { color: #2496ED; }
+        .icon-firebase { color: #FFCA28; }
+        .icon-aiml { color: #9333ea; }
 
         /* ==========================================================================
-           5. PROJECTS SECTION
+           6. PROJECTS GRID ARCHITECTURE
            ========================================================================== */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .project-card {
-            padding: 1.5rem;
+            padding: 1.75rem;
             display: flex;
             flex-direction: column;
             height: 100%;
-            transition: all 0.4s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.25);
         }
 
         .project-icon {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 1rem;
-            background: rgba(255, 255, 255, 0.05);
+            width: 3.25rem;
+            height: 3.25rem;
+            border-radius: 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.35rem;
+            margin-bottom: 1.25rem;
             color: var(--accent-blue);
         }
 
         .project-card h3 {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
         }
 
         .project-card p {
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.55;
             margin-bottom: 1.5rem;
+            font-size: 0.95rem;
             flex-grow: 1;
         }
 
         .project-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
         }
 
         .project-link {
             text-decoration: none;
             color: var(--text-main);
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             transition: color 0.2s ease;
         }
 
@@ -308,45 +455,102 @@
         }
 
         /* ==========================================================================
-           6. FOOTER
+           7. TARGETED SOCIALS CONTAINER & BRAND GLOW HOVERS
            ========================================================================== */
-        footer {
-            padding: 4rem 1.5rem;
+        .contact-container {
+            max-width: 500px;
+            margin: 0 auto;
             text-align: center;
-            border-radius: 2rem 2rem 0 0;
-            border-bottom: none;
+            padding: 2rem 1rem;
         }
 
         .footer-socials {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
+            gap: 1.75rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-socials a {
+        .social-link-btn {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
             color: var(--text-muted);
             font-size: 1.5rem;
-            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .footer-socials a:hover {
-            color: var(--accent-cyan);
-            transform: scale(1.15);
+        /* Instagram Hover State */
+        .btn-instagram:hover {
+            color: #fff;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(220, 39, 67, 0.3);
+            transform: translateY(-4px);
         }
 
-        footer p {
+        /* WhatsApp Hover State */
+        .btn-whatsapp:hover {
+            color: #fff;
+            background: #25D366;
+            border-color: #25D366;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            transform: translateY(-4px);
+        }
+
+        /* Twitter / X Hover State */
+        .btn-twitter:hover {
+            color: #fff;
+            background: #000000;
+            border-color: #333333;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* GitHub Hover State */
+        .btn-github:hover {
+            color: #fff;
+            background: #24292e;
+            border-color: #404448;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .contact-container p {
             color: var(--text-muted);
             font-size: 0.9rem;
+            margin-top: 1.5rem;
         }
 
         /* ==========================================================================
-           7. MOBILE RESPONSIVENESS
+           8. ADAPTIVE RESPONSIVENESS
            ========================================================================== */
         @media (max-width: 768px) {
-            .nav-links { display: none; } /* Kept simple for minimalist portfolio structure */
-            .navbar-wrapper { padding: 0.75rem 1.25rem; }
-            section { padding: 3.5rem 0; }
+            .navbar-wrapper {
+                width: 95%;
+                padding: 0.6rem 1rem;
+            }
+            .nav-links { gap: 0.5rem; }
+            .nav-btn { font-size: 0.85rem; padding: 0.4rem 0.6rem; }
+            .logo { font-size: 1.25rem; }
+            .app-section { max-height: 80vh; padding-top: 1rem; }
+            
+            .hub-menu-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .hub-card { padding: 1.25rem; }
+
+            .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+            .skill-card { padding: 1rem 0.5rem; }
+            .skill-card i { font-size: 1.75rem; }
+            .skill-card span { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -354,33 +558,74 @@
 
     <div class="animated-bg"></div>
 
-    <div class="navbar-wrapper glass-card">
+    <div class="navbar-wrapper glass-card" id="main-navbar">
         <nav>
-            <a href="#" class="logo text-gradient">CHINMAYA.</a>
+            <a onclick="navigateToHomeView(false)" class="logo text-gradient">CHINMAYA.</a>
             <ul class="nav-links">
-                <li><a href="#" class="nav-link active">Home</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><button onclick="navigateToHomeView(false)" class="nav-btn active" id="btn-home">Home</button></li>
+                <li><button onclick="navigateTo('skills')" class="nav-btn" id="btn-skills">Skills</button></li>
+                <li><button onclick="navigateTo('projects')" class="nav-btn" id="btn-projects">Projects</button></li>
+                <li><button onclick="navigateTo('contact')" class="nav-btn" id="btn-contact">Contact</button></li>
             </ul>
         </nav>
     </div>
 
     <main>
-        <section class="hero-section glass-card" data-aos="fade-up">
-            <div class="hero-badge">AIML Student</div>
-            <h1 class="hero-title">Hi, I am <span class="text-gradient">Chinmaya</span></h1>
-            <p class="hero-tagline">
-                An AI/ML student and software enthusiast. I love building smart apps, high-performance websites, and engineering intuitive digital tools.
-            </p>
-            <a href="#projects" class="cta-btn">
-                View My Work <i class="fa-solid fa-arrow-right"></i>
-            </a>
+
+        <section id="view-home" class="app-section hero-section glass-card active-view">
+            
+            <div class="hide-on-hub">
+                <div class="hero-badge">Engineering Innovation</div>
+                <h1 class="hero-title">Hi, I am <span class="text-gradient">Chinmaya</span></h1>
+                <p class="hero-tagline">
+                    An AIML, Cyber Security, Full-Stack, and Software Enthusiast. I thrive on building scalable apps, highly secure architectures, and intuitive web experiences.
+                </p>
+                <button onclick="revealWorkspaceHub()" class="cta-btn" id="main-cta">
+                    View My Work <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="show-only-on-hub" style="width: 100%; text-align: left; max-width: 800px; margin-bottom: 1rem;">
+                <button onclick="navigateToHomeView(false)" class="back-hub-btn">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Main Greeting
+                </button>
+            </div>
+
+            <div class="hub-menu-container">
+                <div onclick="navigateTo('skills')" class="glass-card hub-card hub-skills">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>Technical Skills</span>
+                    <p>Languages & Tech Stack</p>
+                </div>
+                <div onclick="navigateTo('projects')" class="glass-card hub-card hub-projects">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <span>My Projects</span>
+                    <p>Production Repositories</p>
+                </div>
+                <div onclick="navigateTo('contact')" class="glass-card hub-card hub-contact">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Get In Touch</span>
+                    <p>Socials & Contact Form</p>
+                </div>
+            </div>
         </section>
 
-        <section id="skills" data-aos="fade-up">
-            <h2 class="section-title">My Tech Stack</h2>
+        <section id="view-skills" class="app-section">
+            <button onclick="navigateToHomeView(true)" class="back-hub-btn"><i class="fa-solid fa-arrow-left"></i> Back to Cards Menu</button>
+            <h2 class="section-title">Technical Expertise</h2>
             <div class="skills-grid">
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-html5 icon-html"></i>
+                    <span>HTML</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-css3-alt icon-css"></i>
+                    <span>CSS</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-js icon-js"></i>
+                    <span>JavaScript</span>
+                </div>
                 <div class="glass-card skill-card">
                     <i class="fa-solid fa-code icon-cpp"></i>
                     <span>C / C++</span>
@@ -394,79 +639,160 @@
                     <span>Java</span>
                 </div>
                 <div class="glass-card skill-card">
+                    <i class="fa-brands fa-react icon-react"></i>
+                    <span>React JS</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-node-js icon-node"></i>
+                    <span>Node JS</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="ri-triangle-line icon-express"></i>
+                    <span>Express JS</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-solid fa-database icon-mongodb"></i>
+                    <span>MongoDB</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="ri-database-2-line icon-mysql"></i>
+                    <span>MySQL</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-brands fa-php icon-php"></i>
+                    <span>PHP</span>
+                </div>
+                <div class="glass-card skill-card">
                     <i class="fa-brands fa-github icon-git"></i>
                     <span>GitHub</span>
                 </div>
                 <div class="glass-card skill-card">
-                    <i class="fa-solid fa-layer-group icon-web"></i>
-                    <span>Fullstack</span>
+                    <i class="fa-brands fa-docker icon-docker"></i>
+                    <span>Dockerfile</span>
                 </div>
                 <div class="glass-card skill-card">
-                    <i class="fa-solid fa-diagram-project icon-dsa"></i>
-                    <span>DSA</span>
+                    <i class="ri-firebase-line icon-firebase"></i>
+                    <span>Firebase</span>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fa-solid fa-brain icon-aiml"></i>
+                    <span>AI / ML</span>
                 </div>
             </div>
         </section>
 
-        <section id="projects" data-aos="fade-up">
-            <h2 class="section-title">Featured Projects</h2>
+        <section id="view-projects" class="app-section">
+            <button onclick="navigateToHomeView(true)" class="back-hub-btn"><i class="fa-solid fa-arrow-left"></i> Back to Cards Menu</button>
+            <h2 class="section-title">Verified Production Repositories</h2>
             <div class="projects-grid">
-                
                 <div class="glass-card project-card">
                     <div class="project-icon"><i class="fa-solid fa-user-astronaut"></i></div>
-                    <h3>Personal Portfolio Hub</h3>
-                    <p>
-                        A responsive, high-performance single-page developer portfolio using advanced Glassmorphic custom properties and optimized graphics layer workflows.
-                    </p>
+                    <h3>Personal Portfolio</h3>
+                    <p>A high-performance interactive developer dashboard built and hosted live via GitHub Pages mapping sleek modular layout engines.</p>
                     <div class="project-links">
                         <a href="#" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source</a>
-                        <a href="#" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Hub</a>
+                        <a href="#" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live App</a>
                     </div>
                 </div>
-
                 <div class="glass-card project-card">
-                    <div class="project-icon"><i class="fa-solid fa-brain"></i></div>
-                    <h3>AIML Predictive Engine</h3>
-                    <p>
-                        An intelligent predictive architecture utilizing dataset analysis models to map, process, and output automation arrays.
-                    </p>
+                    <div class="project-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <h3>Interactive Quiz Ecosystem</h3>
+                    <p>A state-driven interactive quiz system with dynamic evaluation algorithms, timers, and clean result data visualization panels.</p>
                     <div class="project-links">
                         <a href="#" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source</a>
                     </div>
                 </div>
-
                 <div class="glass-card project-card">
-                    <div class="project-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                    <h3>Fullstack Application Matrix</h3>
-                    <p>
-                        A structural dynamic application module integrated seamlessly with scalable backend configurations and API hooks.
-                    </p>
+                    <div class="project-icon"><i class="fa-solid fa-camera-retro"></i></div>
+                    <h3>SNAPIT Web Portal</h3>
+                    <p>A sleek, visually immersive platform dedicated to responsive high-speed image processing, asset structuring, and media rendering.</p>
                     <div class="project-links">
                         <a href="#" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source</a>
                     </div>
                 </div>
-
             </div>
         </section>
+
+        <section id="view-contact" class="app-section">
+            <div style="max-width: 500px; margin: 0 auto; text-align: left;">
+                <button onclick="navigateToHomeView(true)" class="back-hub-btn"><i class="fa-solid fa-arrow-left"></i> Back to Cards Menu</button>
+            </div>
+            <div class="glass-card contact-container">
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Let's Connect</h2>
+                <p style="margin-bottom: 2rem;">I'm currently looking for open collaborations, software development roles, or intelligent AI projects. Drop a line!</p>
+                
+                <div class="footer-socials">
+                    <a href="https://github.com/your-username" target="_blank" class="social-link-btn btn-github" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://instagram.com/your-username" target="_blank" class="social-link-btn btn-instagram" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/your-number" target="_blank" class="social-link-btn btn-whatsapp" aria-label="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="https://twitter.com/your-username" target="_blank" class="social-link-btn btn-twitter" aria-label="Twitter">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </div>
+                
+                <p>&copy; <span id="year"></span> Chinmaya. Engineering the next digital tier.</p>
+            </div>
+        </section>
+
     </main>
 
-    <footer id="contact" class="glass-card">
-        <div class="footer-socials">
-            <a href="#" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:your.email@example.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-        </div>
-        <p>&copy; <span id="year"></span> Chinmaya. Built with passion and code.</p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+        // Track the current presentation depth of our landing dashboard layer
+        let hubViewActive = false;
 
-        // Dynamic Year Update Footer hook
+        /**
+         * Global View Manager
+         */
+        function navigateTo(targetViewId) {
+            document.querySelectorAll('.app-section').forEach(section => {
+                section.classList.remove('active-view');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const activeSection = document.getElementById(`view-${targetViewId}`);
+            const activeNavbarButton = document.getElementById(`btn-${targetViewId}`);
+
+            if (activeSection) {
+                activeSection.classList.add('active-view');
+                activeSection.scrollTop = 0; 
+            }
+            if (activeNavbarButton) {
+                activeNavbarButton.classList.add('active');
+            }
+        }
+
+        /**
+         * Contextual Home Engine View Transitions
+         * Switches seamlessly between standard view greeting and custom grid workspace
+         */
+        function navigateToHomeView(shouldShowCardsMenu) {
+            hubViewActive = shouldShowCardsMenu;
+            const homeSection = document.getElementById('view-home');
+            
+            if (shouldShowCardsMenu) {
+                homeSection.classList.add('show-hub-options');
+            } else {
+                homeSection.classList.remove('show-hub-options');
+            }
+            
+            navigateTo('home');
+        }
+
+        /**
+         * Reveals the Cards Menu step when "View My Work" is processed
+         */
+        function revealWorkspaceHub() {
+            navigateToHomeView(true);
+        }
+
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
